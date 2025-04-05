@@ -1,6 +1,12 @@
+import os
 
+# Path to the app root directory
+APP_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
-DATA_ROOT = ""
+# Final data folder path
+DATA_ROOT = os.path.join(APP_ROOT, "data")
+if not os.path.exists(DATA_ROOT):
+    os.makedirs(DATA_ROOT)
 
 # Frequency config for file handling
 STORAGE_RULES = {

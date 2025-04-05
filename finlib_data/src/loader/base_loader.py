@@ -10,7 +10,7 @@ class BaseLoader(ABC):
     """
 
     @abstractmethod
-    def laod(self, ticker: str, start_date: str, end_date: str, market: str):
+    def load(self, ticker: str, start_date: str, end_date: str, market: str):
         """
         Load data from local storate for a given ticker symbol and time range
         """

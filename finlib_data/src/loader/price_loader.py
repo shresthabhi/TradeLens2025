@@ -27,7 +27,7 @@ class PriceDataLoader(BaseLoader):
         start_date: str,
         end_date: str,
         market: str
-    ) -> Tuple[pd.DataFrame, List[str]]:
+    ):
         """
         Loads locally available data and returns missing period chunks if any.
         """
@@ -40,7 +40,7 @@ class PriceDataLoader(BaseLoader):
         needed = set(get_required_period_keys(start_date, end_date, self.data_type, frequency, STORAGE_RULES))
 
         to_load = sorted(available.intersection(needed))
-        to_fetch = sorted(needed - available)
+        to_fetch = (needed - available) + [max(needed)] # Need to change this, because this is a quick fix
 
         frames = []
         for period_key in to_load:
@@ -71,6 +71,9 @@ class PriceDataLoader(BaseLoader):
         os.makedirs(folder_path, exist_ok=True)
 
         rules = STORAGE_RULES[self.data_type][frequency]
+
+        print("Price saver: \n", data.head())
+
         data["date"] = pd.to_datetime(data["date"])
         data["chunk_key"] = data["date"].apply(
             lambda x: get_time_key_for_frequency(x, self.data_type, frequency, STORAGE_RULES)

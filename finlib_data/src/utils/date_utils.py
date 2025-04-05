@@ -34,7 +34,7 @@ def get_required_period_keys(start_date, end_date, data_type, frequency, rules):
         periods = pd.date_range(start, end, freq="MS")
     elif fmt == "%Y-Q%q":
         # Special case — quarter calculation
-        dates = pd.date_range(start, end, freq="Q")
+        dates = pd.date_range(start, end, freq="QE")
         periods = [f"{d.year}-Q{((d.month - 1)//3 + 1)}" for d in dates]
         return sorted(set(periods))
     else:
