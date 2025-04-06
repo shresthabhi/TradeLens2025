@@ -47,8 +47,8 @@ class DataManager:
             fetched_data = fetcher.fetch(ticker, frequency, missing_chunks, start_date, end_date, market)
             
             if not fetched_data.empty:
-                print("Data manager\n", fetched_data.head())
-                print("this, this , this")
+                # print("Data manager\n", fetched_data.head())
+                # print("this, this , this")
                 loader.save(ticker, frequency, fetched_data, market)
                 # Reload the final dataset to include fetched data
                 full_data, _ = loader.load(ticker, frequency, start_date, end_date, market)

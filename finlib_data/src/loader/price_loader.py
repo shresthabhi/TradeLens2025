@@ -40,7 +40,7 @@ class PriceDataLoader(BaseLoader):
         needed = set(get_required_period_keys(start_date, end_date, self.data_type, frequency, STORAGE_RULES))
 
         to_load = sorted(available.intersection(needed))
-        to_fetch = (needed - available) + [max(needed)] # Need to change this, because this is a quick fix
+        to_fetch = (needed - available).union(set([max(needed)])) # Need to change this, because this is a quick fix
 
         frames = []
         for period_key in to_load:
@@ -72,7 +72,7 @@ class PriceDataLoader(BaseLoader):
 
         rules = STORAGE_RULES[self.data_type][frequency]
 
-        print("Price saver: \n", data.head())
+        # print("Price saver: \n", data.head())
 
         data["date"] = pd.to_datetime(data["date"])
         data["chunk_key"] = data["date"].apply(

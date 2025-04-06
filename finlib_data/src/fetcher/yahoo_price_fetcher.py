@@ -56,6 +56,6 @@ class YahooPriceFetcher(BaseFetcher):
         df.rename(columns={"Date": "date"}, inplace=True)
         df["ticker"] = ticker
 
-        print("Fetcher\n", df.head())
+        # print("Fetcher\n", df.head())
 
         return df
