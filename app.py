@@ -12,7 +12,7 @@ from frontend_screening import screening_tab
 
 # Page settings
 st.set_page_config(page_title="Financial Analytics Dashboard", layout="wide")
-st.title("📊 Financial Analytics Dashboard")
+# st.title("📊 Financial Analytics Dashboard")
 
 tabs = ["Stock Screening", "Custom ML Models", "Backtesting", "Diversification"]
 choice = st.sidebar.radio("Navigation", tabs)
@@ -26,35 +26,9 @@ def load_data():
 
 df = load_data()
 
-# Shared file uploader
-uploaded_file = st.sidebar.file_uploader("Upload Excel or CSV file", type=["xlsx", "csv"])
 
-# # Load data
-# if uploaded_file:
-#     if uploaded_file.name.endswith(".csv"):
-#         df = pd.read_csv(uploaded_file)
-#     else:
-#         df = pd.read_excel(uploaded_file)
 
-# Stock Screening
 if choice == "Stock Screening":
-    # st.header("Stock Screening & Filtering")
-
-    # if df is not None:
-    #     st.dataframe(df.head())
-
-    #     numeric_cols = df.select_dtypes(include=["float64", "int64"]).columns.tolist()
-    #     col1, col2 = st.columns(2)
-
-    #     with col1:
-    #         x_axis = st.selectbox("X-axis column", options=numeric_cols)
-    #     with col2:
-    #         y_axis = st.selectbox("Y-axis column", options=numeric_cols)
-
-    #     fig = px.scatter(df, x=x_axis, y=y_axis, title=f"{y_axis} vs {x_axis}")
-    #     st.plotly_chart(fig, use_container_width=True)
-    # else:
-    #     st.info("Please upload data to begin screening.")
     screening_tab(df)
 # ML Models
 elif choice == "Custom ML Models":
