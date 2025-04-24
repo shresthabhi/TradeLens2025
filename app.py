@@ -9,6 +9,7 @@ import datetime
 import backend_diversification as backend  
 from frontend_diversification import diversification_tab
 from frontend_screening import screening_tab
+from frontend_kmeans import clustering_tab
 
 # Page settings
 st.set_page_config(page_title="Financial Analytics Dashboard", layout="wide")
@@ -27,50 +28,13 @@ def load_data():
 df = load_data()
 
 
-
 if choice == "Stock Screening":
     screening_tab(df)
-# ML Models
+
 elif choice == "Custom ML Models":
-    st.header(" Machine Learning Models")
-
-    if df is not None:
-        st.subheader("Select Features for ML")
-        ml_cols = st.multiselect("Choose columns for modeling", df.select_dtypes(include="number").columns)
-
-        if len(ml_cols) >= 2:
-            model_type = st.selectbox("Choose a model", ["K-Means Clustering", "Linear Regression"])
-
-            if model_type == "K-Means Clustering":
-                k = st.slider("Number of clusters", 2, 10, 3)
-                kmeans = KMeans(n_clusters=k)
-                clusters = kmeans.fit_predict(df[ml_cols])
-                df["Cluster"] = clusters
-                fig = px.scatter(df, x=ml_cols[0], y=ml_cols[1], color=df["Cluster"].astype(str),
-                                 title="K-Means Clustering")
-                st.plotly_chart(fig, use_container_width=True)
-
-            elif model_type == "Linear Regression":
-                x_col = st.selectbox("Feature (X)", ml_cols)
-                y_col = st.selectbox("Target (Y)", ml_cols)
-                model = LinearRegression()
-                X = df[[x_col]]
-                y = df[y_col]
-                model.fit(X, y)
-                y_pred = model.predict(X)
-                df["Prediction"] = y_pred
-                fig = px.scatter(df, x=x_col, y=y_col, title="Linear Regression")
-                fig.add_scatter(x=df[x_col], y=y_pred, mode="lines", name="Regression Line")
-                st.plotly_chart(fig, use_container_width=True)
-
-                st.write("R-squared:", model.score(X, y))
-        else:
-            st.warning("Select at least two numeric columns.")
-    else:
-        st.info("Upload data to use ML models.")
+    clustering_tab()
 
 elif(choice == "Diversification"):
-    
     diversification_tab()
 
 # Backtesting (Placeholder)

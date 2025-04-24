@@ -120,7 +120,6 @@ def screening_tab(df):
     for col, (min_val, max_val) in selected_filters.items():
         filtered_df = filtered_df[filtered_df[col].between(min_val, max_val)]
 
-    # Move latest_data definition outside the filter loop
     latest_data = filtered_df.sort_values("public_date").groupby("permno").tail(1)
 
     additional_cols = list(selected_filters.keys())

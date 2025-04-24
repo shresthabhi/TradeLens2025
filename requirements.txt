@@ -23,3 +23,7 @@ streamlit
 plotly
 
 yfinance 
+
+openai==0.28
+
+ollama

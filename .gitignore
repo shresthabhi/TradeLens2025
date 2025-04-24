@@ -14,3 +14,8 @@ venv-finance/
 venv-finapp/
 
 financial_ratios_2010_2024_v3.csv
+
+.streamlit
+
+/models/
+models/
