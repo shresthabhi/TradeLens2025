@@ -1,6 +1,25 @@
+# Base compatibility
+numpy==1.24.4
+
+# PyTorch for Apple Silicon (CPU/MPS backend)
+torch==2.0.1
+torchaudio==2.0.2
+torchvision==0.15.2
+# Installed from PyTorch CPU index (handled in pip command, not here)
+
+# HuggingFace Transformers and model support
+transformers==4.27.1
+huggingface-hub>=0.13.3
+
+# Visualization
+matplotlib==3.8.4
+seaborn==0.13.2
+
+# Machine Learning and Statistics
+scikit-learn==1.4.2
+statsmodels==0.14.1
+
 streamlit
-pandas
-numpy
 plotly
-scikit-learn
-yfinance
+
+yfinance 
