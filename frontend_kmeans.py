@@ -4,8 +4,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 import plotly.express as px
+from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import ollama
+from sklearn.manifold import TSNE
+from sklearn.metrics import silhouette_score
 
 
 # Step 1: Upload filtered data
@@ -105,7 +108,6 @@ def clustering_tab():
 
                 if st.button("Run K-Means Clustering"):
                     st.query_params["tab"] = "report"
-                    from sklearn.manifold import TSNE
                     st.session_state["multi_k"] = multi_k_mode
                     X = df[selected_cols].dropna()
                     ids = df.loc[X.index]
@@ -115,7 +117,9 @@ def clustering_tab():
                         kmeans = KMeans(n_clusters=n_clusters, random_state=42)
                         cluster_labels = kmeans.fit_predict(X_scaled)
 
-                        tsne = TSNE(n_components=2, random_state=42)
+                        n_samples = X_scaled.shape[0]
+                        safe_perplexity = min(30, (n_samples - 1) // 3)
+                        tsne = TSNE(n_components=2, perplexity=safe_perplexity, random_state=42)
                         tsne_result = tsne.fit_transform(X_scaled)
 
                         tsne_df = pd.DataFrame(tsne_result, columns=["TSNE1", "TSNE2"])
@@ -125,7 +129,6 @@ def clustering_tab():
                         st.session_state["cluster_result"] = df.loc[X.index].assign(Cluster=cluster_labels)
                         st.session_state["tsne_df"] = tsne_df
                     else:
-                        from sklearn.metrics import silhouette_score
                         sil_scores = {}
                         for k in range(2, 11):
                             km = KMeans(n_clusters=k, random_state=42).fit(X_scaled)
@@ -141,20 +144,19 @@ def clustering_tab():
             selected_k = st.selectbox("Select K to view clustering result:", list(st.session_state["sil_scores"].keys()), index=0)
             kmeans = KMeans(n_clusters=selected_k, random_state=42).fit(st.session_state["X_scaled"])
             labels = kmeans.labels_
-            from sklearn.manifold import TSNE
-            tsne = TSNE(n_components=2, random_state=42)
+
+            n_samples = st.session_state["X_scaled"].shape[0]
+            safe_perplexity = min(30, (n_samples - 1) // 3)
+            tsne = TSNE(n_components=2, perplexity=safe_perplexity, random_state=42)
             tsne_result = tsne.fit_transform(st.session_state["X_scaled"])
 
             tsne_df = pd.DataFrame(tsne_result, columns=["TSNE1", "TSNE2"])
             tsne_df["Cluster"] = labels
             tsne_df["Company"] = st.session_state["df_ids"].get("ticker", st.session_state["df_ids"].index)
             cluster_counts = pd.Series(labels).value_counts().sort_index()
-            from sklearn.metrics import silhouette_score
             score = silhouette_score(st.session_state["X_scaled"], labels)
             st.markdown(f"<h3 style='margin-top: 0;'>Silhouette Score: <span style='color:#1f77b4'>{score:.2f}</span></h3>", unsafe_allow_html=True)
 
-            from plotly.subplots import make_subplots
-            import plotly.graph_objects as go
 
             fig = make_subplots(rows=1, cols=2, subplot_titles=("t-SNE Cluster Plot", "Cluster Distribution"))
             for cluster in tsne_df["Cluster"].unique():
@@ -175,7 +177,6 @@ def clustering_tab():
             st.subheader("📍 Cluster Report")
             st.markdown("The silhouette score is a measure of how well-separated and cohesive each cluster is. A score close to 1 indicates well-defined clusters, while a score close to 0 suggests overlapping clusters.")
 
-            from sklearn.metrics import silhouette_score
             X = st.session_state["cluster_result"][selected_cols].dropna()
             X_scaled = StandardScaler().fit_transform(X)
             score = silhouette_score(X_scaled, st.session_state["cluster_result"]["Cluster"])
@@ -184,12 +185,6 @@ def clustering_tab():
             X_scaled = StandardScaler().fit_transform(X)
             score = silhouette_score(X_scaled, st.session_state["cluster_result"]["Cluster"])
 
-            
-            from plotly.subplots import make_subplots
-
-            # t-SNE scatter plot and bar chart side-by-side
-            from plotly.subplots import make_subplots
-            import plotly.graph_objects as go
 
             fig = make_subplots(rows=1, cols=2, subplot_titles=("t-SNE Cluster Plot", "Cluster Distribution"))
 
@@ -261,12 +256,13 @@ Cluster values are :
 """
 
                 prompt += """Provide concise insights in bullet points for each cluster.
-Also format the output in markdown tabular format, one column for cluster number, another for key traits, and last for descriotion.
+Also format the output in markdown tabular format, one column for cluster number, another for key traits, and last column for description.
 Format with proper highlighting of text, like bold, italics and use some standard emojis for high low.
 Don't use html tags"""
 
                 response = ollama.generate(
                     model='mistral',
+                    # model="deepseek-r1:1.5b",
                     prompt=prompt
                 )
                 st.markdown(response['response'])

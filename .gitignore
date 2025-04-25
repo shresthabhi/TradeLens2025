@@ -19,3 +19,8 @@ financial_ratios_2010_2024_v3.csv
 
 /models/
 models/
+
+/model/
+model/
+
+backtesting_test.ipynb

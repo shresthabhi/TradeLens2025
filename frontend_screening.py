@@ -8,13 +8,17 @@ def screening_tab(df):
     st.title("📊 WRDS Stock Screener")
 
     st.sidebar.subheader("Filter Stocks")
-    min_date = df['public_date'].min()
-    max_date = df['public_date'].max()
+    # min_date = df['public_date'].min()
+    # max_date = df['public_date'].max()
+    min_date = pd.Timestamp("2013-01-01")
+    max_date = pd.Timestamp("2013-06-30")
     date_range = st.sidebar.date_input("Select Public Date Range:", [min_date, max_date])
 
     if len(date_range) == 2:
         start_date = pd.Timestamp(date_range[0])
         end_date = pd.Timestamp(date_range[1])
+        # start_date = pd.Timestamp("2024-06-01")
+        # end_date = pd.Timestamp("2024-12-31")
         df = df[(df['public_date'] >= start_date) & (df['public_date'] <= end_date)]
 
     readable_labels = {
@@ -112,7 +116,9 @@ def screening_tab(df):
                         label = readable_labels[col] if col in readable_labels else col
                         use_filter = st.checkbox(label, key=f"use_{col}")
                         if use_filter:
-                            min_val, max_val = float(df[col].min(skipna=True)), float(df[col].max(skipna=True))
+                            # min_val, max_val = float(df[col].min(skipna=True)), float(df[col].max(skipna=True))
+                            percentile = 0.05
+                            min_val, max_val = float(df[col].quantile(percentile)), float(df[col].quantile(1-percentile))
                             selected_range = st.slider(label, min_val, max_val, (min_val, max_val), key=f"slider_{col}")
                             selected_filters[col] = selected_range
 
