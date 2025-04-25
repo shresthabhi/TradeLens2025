@@ -6,7 +6,7 @@ from sklearn.cluster import KMeans
 import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
-import ollama
+# import ollama
 import openai
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
