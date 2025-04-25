@@ -43,8 +43,12 @@ class DataManager:
 
         # Step 2: If missing chunks, fetch them
         if missing_chunks:
-            print(f"[INFO] Missing chunks for {ticker}: {missing_chunks}")
-            fetched_data = fetcher.fetch(ticker, frequency, missing_chunks, start_date, end_date, market)
+            # print(f"[INFO] Missing chunks for {ticker}: {missing_chunks}")
+            # fetched_data = fetcher.fetch(ticker, frequency, missing_chunks, start_date, end_date, market)
+            start_of_year = pd.to_datetime(start_date).replace(month=1, day=1).strftime('%Y-%m-%d')
+            end_of_year = pd.to_datetime(end_date).replace(month=12, day=31).strftime('%Y-%m-%d')
+
+            fetched_data = fetcher.fetch(ticker, frequency, missing_chunks, start_of_year, end_of_year, market)
             
             if not fetched_data.empty:
                 # print("Data manager\n", fetched_data.head())
