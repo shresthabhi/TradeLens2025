@@ -62,7 +62,7 @@ networkx==3.4.2
 numpy==1.26.4
 ollama==0.4.8
 openai==0.28.0
-packaging==25.0
+packaging==24.0
 pandas==2.2.3
 parso==0.8.4
 patsy==1.0.1
