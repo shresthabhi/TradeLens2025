@@ -1,44 +1,97 @@
 # app.py
 import streamlit as st
 import pandas as pd
+# Make sure all necessary imports are here
 import plotly.express as px
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LinearRegression
-
 import datetime
-import backend_diversification as backend  
+# Assuming these are correctly imported from your other files
+import backend_diversification as backend
 from frontend_diversification import diversification_tab
 from frontend_screening import screening_tab
-from frontend_kmeans import clustering_tab
+from frontend_kmeans import clustering_tab # Your KMeans function using internal tabs
+from sentiment_panel import sentiment_analysis_panel
+from home import home
+
+from ui_backtest.backtest_tab import backtest_tab # Your Backtesting function
+
 
 # Page settings
 st.set_page_config(page_title="Financial Analytics Dashboard", layout="wide")
 # st.title("📊 Financial Analytics Dashboard")
 
-tabs = ["Stock Screening", "Custom ML Models", "Backtesting", "Diversification"]
+# --- Navigation ---
+# Remove "Diversification" from the main sidebar navigation
+tabs = ["Home", "Stock Screening", "Analytical Tools", "Backtesting"]
 choice = st.sidebar.radio("Navigation", tabs)
 
+
+# --- Data Loading ---
 @st.cache_data
 def load_data():
-    df = pd.read_csv("financial_ratios_2010_2024_v3.csv")
-    df.columns = df.columns.str.lower()  # standardize columns
-    df['public_date'] = pd.to_datetime(df['public_date'], errors='coerce')  # parse date once
-    return df
+    # Ensure this path is correct
+    try:
+        df = pd.read_csv("financial_ratios_2010_2024_v3.csv")
+        df.columns = df.columns.str.lower()  # standardize columns
+        df['public_date'] = pd.to_datetime(df['public_date'], errors='coerce')  # parse date once
+        return df
+    except FileNotFoundError:
+        st.error("Error: financial_ratios_2010_2024_v3.csv not found. Please ensure the file is in the correct directory.")
+        st.stop() # Stop execution if file is not found
+    except Exception as e:
+         st.error(f"Error loading data: {e}")
+         st.stop()
+
 
 df = load_data()
 
+if choice == "Home":
+    home()
 
-if choice == "Stock Screening":
+elif choice == "Stock Screening":
+    st.subheader("Stock Screening") # Optional: Add a subheader for clarity
     screening_tab(df)
 
-elif choice == "Custom ML Models":
-    clustering_tab()
+elif choice == "Analytical Tools":
+    st.subheader("Analytical Tools") # Optional: Add a main subheader
 
-elif(choice == "Diversification"):
-    diversification_tab()
+    if 'model_sub_choice' not in st.session_state:
+        st.session_state.model_sub_choice = 'Sentiment' # Set a default view
 
-# Backtesting (Placeholder)
+    col1, col2, col3 = st.columns(3)
+
+
+    with col1:
+        if st.button("🔍 Sentiment Analysis", use_container_width=True):
+            st.session_state.model_sub_choice = 'Sentiment'
+            st.rerun()
+
+    with col3:
+        if st.button("📈 KMeans Clustering", use_container_width=True):
+             st.session_state.model_sub_choice = 'KMeans'
+             st.rerun()
+
+    with col2:
+        if st.button("🌱 Diversification Analysis", use_container_width=True):
+             st.session_state.model_sub_choice = 'Diversification'
+             st.rerun()
+
+    st.markdown("---") 
+
+    if st.session_state.model_sub_choice == "Sentiment":
+        st.write("Explore what the media is talking about")
+        sentiment_analysis_panel()
+
+    elif st.session_state.model_sub_choice == "KMeans":
+        st.write("Explore KMeans Clustering here.")
+        clustering_tab()
+
+    elif st.session_state.model_sub_choice == "Diversification":
+        st.write("Check if your portfolio is diversified!") 
+        diversification_tab()
+
+
 elif choice == "Backtesting":
-    st.header("Strategy Backtesting")
-    st.info("Coming soon: Upload a portfolio and define entry/exit rules.")
-
+    st.subheader("Backtesting Strategy") # Optional: Add a subheader
+    backtest_tab()

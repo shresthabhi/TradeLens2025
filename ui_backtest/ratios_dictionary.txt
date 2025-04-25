@@ -1,0 +1,92 @@
+Identifying information -
+PERMNO (PERMNO)
+Global Company Key (GVKEY)
+CUSIP IDENTIFIER - HISTORICAL (CUSIP)
+EXCHANGE TICKER SYMBOL - HISTORICAL (TICKER)
+
+Valuation ratio -
+Dividend Payout Ratio (dpr)
+Trailing P/E to Growth (PEG) ratio (peg_trailing)
+Book/Market (bm)
+Shillers Cyclically Adjusted P/E Ratio (capei)
+Dividend Yield (divyield)
+Enterprise Value Multiple (evm)
+Price/Cash flow (pcf)
+P/E (Diluted, Excl. EI) (pe_exi)
+P/E (Diluted, Incl. EI) (pe_inc)
+Price/Operating Earnings (Basic, Excl. EI) (pe_op_basic)
+Price/Operating Earnings (Diluted, Excl. EI) (pe_op_dil)
+Price/Sales (ps)
+Price/Book (ptb)
+
+
+Profitability ratio -
+Effective Tax Rate (efftax)
+Gross Profit/Total Assets (gprof)
+After-tax Return on Average Common Equity (aftret_eq)
+After-tax Return on Total Stockholders Equity (aftret_equity)
+After-tax Return on Invested Capital (aftret_invcapx)
+Gross Profit Margin (gpm)
+Net Profit Margin (npm)
+Operating Profit Margin After Depreciation (opmad)
+Operating Profit Margin Before Depreciation (opmbd)
+Pre-tax Return on Total Earning Assets (pretret_earnat)
+Pre-tax return on Net Operating Assets (pretret_noa)
+Pre-tax Profit Margin (ptpm)
+Return on Assets (roa)
+Return on Capital Employed (roce)
+Return on Equity (roe)
+
+Capital Ratio - 
+Capitalization Ratio (capital_ratio)
+Common Equity/Invested Capital (equity_invcap)
+Long-term Debt/Invested Capital (debt_invcap)
+Total Debt/Invested Capital (totdebt_invcap)
+
+Financial Soundness - 
+Inventory/Current Assets (invt_act)
+Receivables/Current Assets (rect_act)
+Free Cash Flow/Operating Cash Flow (fcf_ocf)
+Operating CF/Current Liabilities (ocf_lct)
+Cash Flow/Total Debt (cash_debt)
+Cash Balance/Total Liabilities (cash_lt)
+Cash Flow Margin (cfm)
+Short-Term Debt/Total Debt (short_debt)
+Profit Before Depreciation/Current Liabilities (profit_lct)
+Current Liabilities/Total Liabilities (curr_debt)
+Total Debt/EBITDA (debt_ebitda)
+Long-term Debt/Book Equity (dltt_be)
+Interest/Average Long-term Debt (int_debt)
+Interest/Average Total Debt (int_totdebt)
+Long-term Debt/Total Liabilities (lt_debt)
+Total Liabilities/Total Tangible Assets (lt_ppent)
+
+Solvency Ratio - 
+Total Debt/Equity (de_ratio)
+Total Debt/Total Assets (debt_assets)
+Total Debt/Total Assets (debt_at)
+Total Debt/Capital (debt_capital)
+After-tax Interest Coverage (intcov)
+Interest Coverage Ratio (intcov_ratio)
+
+Liquidity Ratio - 
+Cash Conversion Cycle (Days) (cash_conversion)
+Cash Ratio (cash_ratio)
+Current Ratio (curr_ratio)
+Quick Ratio (Acid Test) (quick_ratio)
+
+
+Efficiency Ratio - 
+Asset Turnover (at_turn)
+Inventory Turnover (inv_turn)
+Payables Turnover (pay_turn)
+Receivables Turnover (rect_turn)
+Sales/Stockholders Equity (sale_equity)
+Sales/Invested Capital (sale_invcap)
+Sales/Working Capital (sale_nwc)
+
+Other ratio - 
+Accruals/Average Assets (accrual)
+Research and Development/Sales (rd_sale)
+Avertising Expenses/Sales (adv_sale)
+Labor Expenses/Sales (staff_sale)

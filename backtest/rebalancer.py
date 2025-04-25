@@ -15,6 +15,7 @@ class Rebalancer:
         self.end_date = end_date
         self.strategy = strategy
         self.risk_free_rate = risk_free_rate
+        self.daily_risk_free_rate = self.risk_free_rate / 252
 
         dm = DataManager()
 
@@ -52,7 +53,8 @@ class Rebalancer:
             def objective(weights):
                 port_return = np.dot(weights, mean_returns)
                 port_std = np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))
-                return -(port_return - self.risk_free_rate) / port_std
+                epsilon = 1e-8
+                return -(port_return - self.daily_risk_free_rate) / (port_std + 1e-8)
         elif self.strategy == "min_volatility":
             def objective(weights):
                 return np.sqrt(np.dot(weights.T, np.dot(cov_matrix, weights)))

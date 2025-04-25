@@ -7,9 +7,11 @@ import plotly.express as px
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import ollama
+import openai
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 
+openai.api_key = st.secrets.to_dict()["openai_api_key"]
 
 # Step 1: Upload filtered data
 def clustering_tab():
@@ -255,14 +257,39 @@ Cluster values are :
                     prompt += """
 """
 
-                prompt += """Provide concise insights in bullet points for each cluster.
-Also format the output in markdown tabular format, one column for cluster number, another for key traits, and last column for description.
-Format with proper highlighting of text, like bold, italics and use some standard emojis for high low.
-Don't use html tags"""
+                prompt += """Summarize the key insights for each cluster in concise bullet points.
+- Present the results in a table format which can be interpreted by streamlit markdown and can be shown as nice table.
+- Each row should represent one cluster.
+- Include the following three columns:
+  1. Cluster Number
+  2. Key Traits (a few distinguishing features)
+  3. Description (insights in human-readable bullet points)
 
-                response = ollama.generate(
-                    model='mistral',
-                    # model="deepseek-r1:1.5b",
-                    prompt=prompt
+Formatting instructions:
+- Highlight key points in the Description column using bold and italic format.
+- Avoid excessive numbers or technical jargon—focus on clear, human-friendly insights.
+- Table output should be like 
+| Header 1 | Header 2 |
+|---|---|
+| Row 1, Cell 1 | Row 1, Cell 2 |
+| Row 2, Cell 1 | Row 2, Cell 2 |
+- Do not use HTML tags in the output."""
+
+                # response = ollama.generate(
+                #     model='mistral',
+                #     # model="deepseek-r1:1.5b",
+                #     prompt=prompt
+                # )
+                # st.markdown(response['response'])
+
+                response = openai.ChatCompletion.create(
+                    model="gpt-4o",
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=0.7,
+                    max_tokens=500
                 )
-                st.markdown(response['response'])
+
+                # Display the plain text response
+                # st.markdown(response["choices"][0]["text"])
+
+                st.markdown(response["choices"][0]["message"]["content"])

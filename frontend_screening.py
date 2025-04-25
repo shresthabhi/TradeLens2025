@@ -5,7 +5,7 @@ def screening_tab(df):
     df.columns = df.columns.str.lower()
     df['public_date'] = pd.to_datetime(df['public_date'], errors='coerce')
 
-    st.title("📊 WRDS Stock Screener")
+    st.title("📊 Stock Screener")
 
     st.sidebar.subheader("Filter Stocks")
     # min_date = df['public_date'].min()
