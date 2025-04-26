@@ -43,15 +43,15 @@ def load_data():
          st.error(f"Error loading data: {e}")
          st.stop()
 
-
-df = load_data()
-
 if choice == "Home":
     home()
 
 elif choice == "Stock Screening":
     st.subheader("Stock Screening") # Optional: Add a subheader for clarity
-    screening_tab(df)
+    if st.button("Load Data"):
+        df = load_data()
+        st.write("Data loaded!")
+        screening_tab(df)
 
 elif choice == "Analytical Tools":
     st.subheader("Analytical Tools") # Optional: Add a main subheader
