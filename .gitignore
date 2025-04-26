@@ -3,6 +3,7 @@ test.py
 abhinav_test.ipynb
 
 .venv
+.venv_312
 try.py
 /data/
 data/
@@ -30,3 +31,4 @@ backtesting_test.ipynb
 
 /__pycache__
 .__pycache__
+__pycache__/

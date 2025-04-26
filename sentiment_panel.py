@@ -4,8 +4,15 @@ import plotly.express as px
 from transformers import BertTokenizer, BertForSequenceClassification, pipeline
 from gnews import GNews
 
+# @st.cache_resource
+# def load_finbert():
+#     tokenizer = BertTokenizer.from_pretrained("yiyanghkust/finbert-tone")
+#     model = BertForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone")
+#     return pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+
 @st.cache_resource
 def load_finbert():
+    from transformers import BertTokenizer, BertForSequenceClassification, pipeline
     tokenizer = BertTokenizer.from_pretrained("yiyanghkust/finbert-tone")
     model = BertForSequenceClassification.from_pretrained("yiyanghkust/finbert-tone")
     return pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
@@ -17,6 +24,9 @@ def get_news(ticker):
 def sentiment_analysis_panel():
     st.header("🧾 Company News + Sentiment Analysis")
     ticker = st.text_input("Enter stock ticker (e.g., AAPL, TSLA, NVDA)", value="AAPL")
+    if st.button("Load FinBERT"):
+        finbert = load_finbert()
+        st.write("FinBERT loaded!")
 
     if st.button("Fetch & Analyze News"):
         news_items = get_news(ticker.upper())
