@@ -12,7 +12,7 @@ from finlib_data.manager.data_manager import DataManager
 import streamlit as st
 
 def get_fundamental_data(tickers_list):
-    data_fundamentals = pd.read_csv("financial_ratios_2010_2024_v3.csv")
+    data_fundamentals = pd.read_csv("financial_ratios.csv")
     data_fundamentals["date"] = pd.to_datetime(data_fundamentals["public_date"])
     data_fundamentals.columns = [col.lower() for col in data_fundamentals.columns]
     return data_fundamentals[data_fundamentals.ticker.isin(tickers_list)].copy()

@@ -77,8 +77,8 @@ readable_labels = {
 
 
 # Define default values
-DEFAULT_START_DATE = date(2014, 1, 1)
-DEFAULT_END_DATE = date(2018, 12, 1)
+DEFAULT_START_DATE = date(2018, 1, 1)
+DEFAULT_END_DATE = date(2020, 12, 1)
 DEFAULT_ENTRY_CONDITION = ('pe_inc', '>', 30.0)
 DEFAULT_EXIT_CONDITION = ('pe_inc', '>', 50.0)
 DEFAULT_OPERATORS = [">", "<", ">=", "<=", "==", "!="]
@@ -172,8 +172,6 @@ def show_backtest_input():
     if st.session_state.entry_conditions != new_entry_conditions or st.session_state.entry_condition_count != new_count:
          st.session_state.entry_conditions = new_entry_conditions
          st.session_state.entry_condition_count = new_count
-         # Rerun needed only if a removal happened (handled by rerun_entry flag)
-         # No rerun needed just for value changes
 
 
     if st.button("Add Entry Condition"):

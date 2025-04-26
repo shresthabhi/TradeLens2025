@@ -10,8 +10,8 @@ def screening_tab(df):
     st.sidebar.subheader("Filter Stocks")
     # min_date = df['public_date'].min()
     # max_date = df['public_date'].max()
-    min_date = pd.Timestamp("2013-01-01")
-    max_date = pd.Timestamp("2013-06-30")
+    min_date = pd.Timestamp("2018-01-01")
+    max_date = pd.Timestamp("2024-12-31")
     date_range = st.sidebar.date_input("Select Public Date Range:", [min_date, max_date])
 
     if len(date_range) == 2:

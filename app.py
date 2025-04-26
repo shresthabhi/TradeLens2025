@@ -6,7 +6,7 @@ import plotly.express as px
 from sklearn.cluster import KMeans
 from sklearn.linear_model import LinearRegression
 import datetime
-# Assuming these are correctly imported from your other files
+
 import backend_diversification as backend
 from frontend_diversification import diversification_tab
 from frontend_screening import screening_tab
@@ -32,7 +32,7 @@ choice = st.sidebar.radio("Navigation", tabs)
 def load_data():
     # Ensure this path is correct
     try:
-        df = pd.read_csv("financial_ratios_2010_2024_v3.csv")
+        df = pd.read_csv("financial_ratios.csv")
         df.columns = df.columns.str.lower()  # standardize columns
         df['public_date'] = pd.to_datetime(df['public_date'], errors='coerce')  # parse date once
         return df
