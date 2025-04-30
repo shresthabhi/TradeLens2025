@@ -134,4 +134,7 @@ scipy==1.15.2
 # streamlit==1.44.1
 transformers==4.37.2
 yfinance==0.2.56
+newspaper3k==0.2.8
+lxml_html_clean==0.4.2
+googlenewsdecoder==0.1.7
 
