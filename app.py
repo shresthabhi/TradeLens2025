@@ -48,11 +48,13 @@ if choice == "Home":
 
 elif choice == "Stock Screening":
     st.subheader("Stock Screening") # Optional: Add a subheader for clarity
-    if st.button("Load Data"):
-        df = load_data()
-        st.write("Data loaded!")
-        screening_tab(df)
-
+    # if st.button("Load Data"):
+        # df = load_data()
+        # st.write("Data loaded!")
+        # screening_tab(df)
+    df = load_data()
+    screening_tab(df)
+    
 elif choice == "Analytical Tools":
     st.subheader("Analytical Tools") # Optional: Add a main subheader
 
