@@ -18,6 +18,7 @@ def clustering_tab():
     tab_input, tab_report = st.tabs(["🔧 K-Means Setup", "📊 Cluster Report"])
 
     with tab_input:
+        st.warning("File format : Upload the file you downloaded from stock screener")
         uploaded_file = st.file_uploader("Upload filtered dataset (CSV from screener)", type=["csv"])
 
         if uploaded_file:
