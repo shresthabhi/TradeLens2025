@@ -111,7 +111,7 @@ numpy==1.26.4
 # threadpoolctl==3.6.0
 # tokenizers==0.15.2
 # toml==0.10.2
-# torch==2.2.2
+torch==2.2.2
 # tornado==6.4.2
 # tqdm==4.67.1
 # traitlets==5.14.3
