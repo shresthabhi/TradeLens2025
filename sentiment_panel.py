@@ -23,6 +23,14 @@ def get_news(ticker):
 
 def sentiment_analysis_panel():
     st.header("🧾 Company News + Sentiment Analysis")
+    st.warning("""
+⚠️ **Important Notice**  
+This app makes live API calls to a financial data library. Since it's hosted on Streamlit Cloud, these calls may occasionally **fail due to rate limits or API restrictions**.
+
+Additionally, FinBERT sentiment analysis **won't work on Streamlit Cloud** because it requires the `torch` library, which is difficult to install in this environment.
+
+👉 To run this app with full functionality, including sentiment analysis, **please follow the setup instructions in the [README](https://github.com/sanjalD/TradeLens/tree/main) and host it locally.**
+""")
     ticker = st.text_input("Enter stock ticker (e.g., AAPL, TSLA, NVDA)", value="AAPL")
     if st.button("Load FinBERT"):
         finbert = load_finbert()
