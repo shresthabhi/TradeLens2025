@@ -44,9 +44,13 @@ Additionally, FinBERT sentiment analysis **won't work on Streamlit Cloud** becau
 👉 To run this app with full functionality, including sentiment analysis, **please follow the setup instructions in the [README](https://github.com/sanjalD/TradeLens/tree/main) and host it locally.**
 """)
     ticker = st.text_input("Enter stock ticker (e.g., AAPL, TSLA, NVDA)", value="AAPL")
+    if st.button("Load FinBERT"):
+        finbert = load_finbert()
+        st.write("FinBERT loaded!")
 
     if st.button("Fetch & Analyze News"):
         news_items = get_news(ticker.upper())
+
 
         if not news_items:
             st.warning("No news found or invalid ticker.")
