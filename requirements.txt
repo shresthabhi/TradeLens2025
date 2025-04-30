@@ -61,7 +61,7 @@ narwhals==1.36.0
 nest-asyncio==1.6.0
 networkx==3.4.2
 numpy==1.26.4
-ollama==0.4.8
+# ollama==0.4.8
 openai==0.28.0
 packaging==24.2
 pandas==2.2.3
@@ -71,7 +71,7 @@ peewee==3.17.9
 pexpect==4.9.0
 pillow==11.2.1
 platformdirs==4.3.7
-plotly==5.19.0
+# plotly==5.19.0
 prompt_toolkit==3.0.51
 propcache==0.3.1
 protobuf==5.29.4
@@ -124,8 +124,8 @@ wcwidth==0.2.13
 yarl==1.20.0
 yfinance==0.2.56
 
-gnews==0.4.1
-numpy==2.2.5
+# gnews==0.4.1
+# numpy==2.2.5
 openai==0.28.0
 pandas==2.2.3
 plotly==6.0.1
